@@ -1,11 +1,13 @@
 import { useQuery } from '@tanstack/react-query'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 
 import { FlagUnique } from '@/api/search-only-flags'
 import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
 import { formatNumber } from '@/utils/formatNumber'
+
+import { fetchCountriesWithBorders } from '@/api/search-boders' // Importe a função fetchCountriesWithBorders
 
 import { BorderDetails } from './border-details'
 
@@ -26,7 +28,7 @@ export function DetailsCard() {
   useEffect(() => {
     refetch()
   }, [location.pathname, params.param, refetch])
-
+const [dataa, setDataa] = useState({})
   const languages = pais ? pais.languages : null
   const borders = pais ? pais.borders : null
   const currencyCode = pais ? Object.keys(pais.currencies)[0] : null
@@ -35,7 +37,22 @@ export function DetailsCard() {
   const currencyName = pais ? Object.keys(pais.name.nativeName)[0] : null
   const currencyNameInfo = pais ? pais.name.nativeName[currencyName] : null
 
-  console.log(pais)
+  useEffect(() => {
+    const fetchData = async () => {
+      if (borders && borders.length > 0) {
+        const countriesWithBorders = await Promise.all(
+          borders.map(async (borderCode) => {
+            const country = await fetchCountriesWithBorders({ cca3: borderCode })
+            return country[0]?.name?.official || null;
+          })
+        );
+        setDataa(countriesWithBorders.filter(country => country !== null));
+      }
+    };
+    fetchData();
+  }, [borders]);
+  
+console.log(dataa)
   return (
     <div>
       {loading || !pais ? (
@@ -79,7 +96,7 @@ export function DetailsCard() {
                     {currencyNameInfo.common}
                   </span>
                 </p>
-
+    
                 <p className="text-xl font-semibold text-muted-foreground">
                   Population:{' '}
                   <span className="text-base font-normal">
@@ -125,28 +142,30 @@ export function DetailsCard() {
               </div>
             </div>
             <p className="text-xl font-semibold text-muted-foreground">
-              Borders:{' '}
-              <span className="text-base font-normal">
-                {borders !== null && typeof borders === 'object'
-                  ? Object.entries(borders).map(([code, name]) => (
-                      <span
-                        key={code}
-                        className="text-xl font-semibold text-muted-foreground"
-                      >
-                        <Button
-                          variant="outline"
-                          onClick={() => navigate(`/details/${name}`)}
-                        >
-                          {name}
-                        </Button>{' '}
-                      </span>
-                    ))
-                  : 'No borders available'}
-              </span>
-            </p>
+  Borders:{' '}
+  <span className="text-base font-normal">
+    {dataa !== null && Array.isArray(dataa) && dataa.length > 0
+      ? dataa.map((borderName, index) => (
+          <span key={index} className="text-xl font-semibold text-muted-foreground">
+            <Button
+              variant="outline"
+              className='m-2'
+              onClick={() => navigate(`/details/${borderName}`)}
+            >
+              {borderName}
+            </Button>{' '}
+          </span>
+        ))
+      : 'No borders available'}
+  </span>
+</p>
+
           </div>
         </div>
       )}
     </div>
   )
-}
+  
+  
+  
+  }
