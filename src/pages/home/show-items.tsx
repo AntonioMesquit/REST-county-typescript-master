@@ -2,8 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 
 import { flags } from '@/api/search-all-flags'
 import { Skeleton } from '@/components/ui/skeleton'
-import { Country } from '@/utils/Country'
-
+import { Country } from '@/utils/country'
 import { FlagCard } from './flag-card'
 interface ShowItemsProps {
   searchText: string
@@ -19,23 +18,24 @@ export function ShowItems({ searchText, searchTextInput }: ShowItemsProps) {
   let filteredOrders: Country[] = []
 
   if (loading) {
-    filteredOrders = Array.from({ length: 50 })
-  } else if (orders) {
+    filteredOrders = Array.from({ length: 50 });
+  } else if (orders instanceof Array) {
     filteredOrders = orders.filter((order: Country) => {
       const nameMatch = searchText
         ? order.name.common.toLowerCase().includes(searchText.toLowerCase())
-        : true
+        : true;
       const regionMatch = searchTextInput
         ? order.region.includes(searchTextInput)
-        : true
-      return nameMatch && regionMatch
-    })
+        : true;
+      return nameMatch && regionMatch;
+    });
+  }
+  
+
+  if (!searchText && !searchTextInput) {
+    filteredOrders = (orders || []) as Country[];
   }
 
-  // Se nenhum parâmetro de pesquisa estiver presente, exibimos todos os itens
-  if (!searchText && !searchTextInput) {
-    filteredOrders = orders || []
-  }
 
   return (
     <div className="grid grid-cols-4 justify-items-center gap-y-8">

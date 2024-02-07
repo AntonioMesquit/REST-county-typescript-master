@@ -7,9 +7,8 @@ import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
 import { formatNumber } from '@/utils/formatNumber'
 
-import { fetchCountriesWithBorders } from '@/api/search-boders' // Importe a função fetchCountriesWithBorders
+import { fetchCountriesWithBorders } from '@/api/search-boders' 
 
-import { BorderDetails } from './border-details'
 
 export function DetailsCard() {
   const navigate = useNavigate()
@@ -29,13 +28,13 @@ export function DetailsCard() {
     refetch()
   }, [location.pathname, params.param, refetch])
 const [dataa, setDataa] = useState({})
-  const languages = pais ? pais.languages : null
+const languages = pais ? pais.languages : null as { [key: string]: string } | null;
   const borders = pais ? pais.borders : null
-  const currencyCode = pais ? Object.keys(pais.currencies)[0] : null
-  const currencyInfo = pais ? pais.currencies[currencyCode] : null
-
-  const currencyName = pais ? Object.keys(pais.name.nativeName)[0] : null
-  const currencyNameInfo = pais ? pais.name.nativeName[currencyName] : null
+  const currencyCode = pais ? Object.keys(pais.currencies)[0] : null;
+  const currencyInfo = pais ? pais.currencies[currencyCode as keyof typeof pais.currencies] : null;
+  const currencyName = pais ? Object.keys(pais.name.nativeName)[0] : null;
+  const currencyNameInfo = pais ? pais.name.nativeName[currencyName as keyof typeof pais.name.nativeName] : null;
+  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -93,7 +92,7 @@ console.log(dataa)
                 <p className="text-xl font-semibold text-muted-foreground">
                   Native name:{' '}
                   <span className="text-base font-normal">
-                    {currencyNameInfo.common}
+                    {currencyNameInfo?.common}
                   </span>
                 </p>
     
@@ -122,23 +121,22 @@ console.log(dataa)
                   Currencies:{' '}
                   <span className="text-base font-normal">
                     {' '}
-                    {currencyInfo.name}
+                    {currencyInfo?.name}
                   </span>
                 </p>
                 <p className="text-xl font-semibold text-muted-foreground">
-                  Languages:{' '}
-                  <span className="text-base font-normal">
-                    {' '}
-                    {Object.entries(languages).map(([code, name]) => (
-                      <span
-                        key={code}
-                        className="text-xl font-semibold text-muted-foreground"
-                      >
-                        <span className="text-base font-normal">{name}</span>{' '}
-                      </span>
-                    ))}
-                  </span>
-                </p>
+  Languages:{' '}
+  <span className="text-base font-normal">
+    {languages ? Object.entries(languages).map(([code, name]) => (
+      <span
+        key={code}
+        className="text-xl font-semibold text-muted-foreground"
+      >
+        <span className="text-base font-normal">{name}</span>{' '}
+      </span>
+    )) : 'No languages available'}
+  </span>
+</p>
               </div>
             </div>
             <p className="text-xl font-semibold text-muted-foreground">

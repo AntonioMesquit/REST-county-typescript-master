@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 
-import { Country } from '@/utils/Country'
+import {Country}  from '@/utils/country'
 import { formatNumber } from '@/utils/formatNumber'
 
 interface FlagCardProps {

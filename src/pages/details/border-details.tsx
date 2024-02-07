@@ -1,6 +1,8 @@
-import PropTypes from 'prop-types'
-
-export function BorderDetails({ name, onClick }) {
+interface BorderDetailsProps {
+  name: string
+  onClick : () => void
+}
+export function BorderDetails({ name, onClick } : BorderDetailsProps) {
   return (
     <button onClick={onClick}>
       {name}
@@ -8,8 +10,4 @@ export function BorderDetails({ name, onClick }) {
   )
 }
 
-BorderDetails.propTypes = {
-  name: PropTypes.string.isRequired,
-  onClick: PropTypes.func.isRequired,
-}
 

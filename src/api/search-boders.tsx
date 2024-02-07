@@ -1,5 +1,4 @@
 import { api } from '@/lib/axios'
-import { CountryData } from "@/utils/onlycontry"
 interface fetchCountriesWithBordersProps {
   cca3: string
 } 
