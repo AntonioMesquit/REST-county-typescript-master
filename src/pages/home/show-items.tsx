@@ -47,7 +47,7 @@ export function ShowItems({ searchText, searchTextInput }: ShowItemsProps) {
           <div className="flex flex-col space-y-3" key={i}>
             <Skeleton className="h-[170px] w-[300px] rounded-xl" />
             <div className="space-y-2">
-              <Skeleton className="mt3 mb-3 h-6 w-full" />
+              <Skeleton className="mb-3 h-6 w-[300px]" />
               <Skeleton className="h-4 w-[200px]" />
               <Skeleton className="h-4 w-[200px]" />
               <Skeleton className="h-4 w-[200px]" />
