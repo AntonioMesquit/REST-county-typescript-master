@@ -53,7 +53,7 @@ const languages = pais ? pais.languages : null as { [key: string]: string } | nu
   
   return (
     <div>
-      {!loading || !pais ? (
+      {loading || !pais ? (
         <div className="flex flex-col md:flex-row md:space-x-32 md:space-y-10 lg:space-x-32 space-y-10">
          <Skeleton className="h-[225px] w-full lg:h-[525px] lg:w-[850px]" />
           <div className="flex flex-col gap-14">
