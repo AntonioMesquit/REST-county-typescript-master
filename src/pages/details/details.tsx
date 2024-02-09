@@ -7,7 +7,7 @@ import { DetailsCard } from './details-card'
 
 export function Details() {
   return (
-    <div className="p-10">
+    <div className="p-0 lg:p10">
       <Link to="/">
         <Button
           variant="outline"

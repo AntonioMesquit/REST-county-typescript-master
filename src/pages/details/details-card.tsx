@@ -51,21 +51,21 @@ const languages = pais ? pais.languages : null as { [key: string]: string } | nu
     fetchData();
   }, [borders]);
   
-console.log(dataa)
   return (
     <div>
       {loading || !pais ? (
-        <div className="flex space-x-32 space-y-10">
-          <Skeleton className="h-[525px] w-[850px]" />
+        <div className="flex flex-col md:flex-row md:space-x-32 md:space-y-10 lg:space-x-32 space-y-10">
+         <Skeleton className="h-[225px] w-full lg:h-[525px] lg:w-[850px]" />
           <div className="flex flex-col gap-14">
             <Skeleton className="h-5 w-[150px]" />
-            <div className="flex gap-14">
+            <div className="flex gap-3 lg:gap-14">
               <div>
-                <Skeleton className="mb-3 h-3 w-[150px]" />
-                <Skeleton className="mb-3 h-3 w-[150px]" />
-                <Skeleton className="mb-3 h-3 w-[100px]" />
-                <Skeleton className="mb-3 h-3 w-[150px]" />
-                <Skeleton className="mb-3 h-3 w-[150px]" />
+                <Skeleton className="mb-3 h-3 w-[100px] lg:w-[150px]" />
+                <Skeleton className="mb-3 h-3 w-[100px] lg:w-[150px]" />
+                <Skeleton className="mb-3 h-3 w-[100px] lg:w-[150px]" />
+                <Skeleton className="mb-3 h-3 w-[100px] lg:w-[150px]" />
+                <Skeleton className="mb-3 h-3 w-[100px] lg:w-[150px]" />
+
               </div>
               <div>
                 <Skeleton className="mb-3 h-3 w-[100px]" />
@@ -73,14 +73,16 @@ console.log(dataa)
                 <Skeleton className="mb-3 h-3 w-[150px]" />
               </div>
             </div>
-            <Skeleton className="mb-3 h-12 w-[450px]" />
+            <Skeleton className="mb-3 h-12 w-450 lg:w-250" />
+
           </div>
         </div>
       ) : (
-        <div className="flex space-x-32 space-y-10">
+        <div className="flex flex-col md:flex-row lg:space-x-32 space-y-10">
+
           <img
             src={pais?.flags.png}
-            className="h-[525px] w-[850px]"
+            className="h-[225px] w-[450px]  lg:h-[525px] lg:w-[850px]"
             alt={pais.name.common}
           />
           <div className="flex flex-col gap-14">

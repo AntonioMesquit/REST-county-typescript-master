@@ -22,8 +22,8 @@ export function Home() {
   }
 
   return (
-    <div className="flex w-full flex-col gap-10 p-10">
-      <div className="flex w-full justify-between pl-16 pr-20">
+    <div className="flex w-full flex-col gap-10 md:p-10">
+      <div className="flex w-full justify-between gap-2 md:pl-16 pr-20">
         <Input
           placeholder="Search for a country"
           className="w-[300px]"

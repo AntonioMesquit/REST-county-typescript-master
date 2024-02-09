@@ -38,7 +38,7 @@ export function ShowItems({ searchText, searchTextInput }: ShowItemsProps) {
 
 
   return (
-    <div className="grid grid-cols-4 justify-items-center gap-y-8">
+    <div className="grid grid-col-1 md:grid-cols-2 lg:grid-cols-4 gap-y-5  ">
       {filteredOrders.map((order, i) => (
         <FlagCard key={i} data={order} />
       ))}
